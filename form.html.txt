@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      /*margin: 40px auto;*/
+      padding: 10px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-top: 10px;
+    }
+    input {
+      padding: 8px;
+      font-size: 1rem;
+      margin-top: 5px;
+    }
+    .error {
+      color: red;
+      font-size: 0.9rem;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      font-size: 1rem;
+    }
+    .success-message {
+      color: green;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Register</h2>
+  <form id="registrationForm" novalidate>
+    <label for="username">Username *</label>
+    <input type="text" id="username" name="username" required />
+    <div class="error" id="usernameError"></div>
+<br>
+    
+
+    
+<br>
+    <div style="display: flex; gap:10px;">
+      <label>Enter Your Gender: </label>
+    <label for="male">Male</label>
+    <input type="radio" id="male" name="Gender" >
+
+    <label for="female">Female</label>
+    <input type="radio" id="female" name="Gender" >
+    </div>
+<br>
+    <label for="email">Email *</label>
+    <input type="text" id="email" name="email" required />
+    <div class="error" id="emailError"></div>
+
+    <label for="password">Password *</label>
+    <input type="password" id="password" name="password" required />
+    <div class="error" id="passwordError"></div>
+
+    <label for="confirmPassword">Confirm Password *</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required />
+    <div class="error" id="confirmPasswordError"></div>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <div class="success-message" id="successMessage"></div>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+    const username = document.getElementById('username');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+
+    const usernameError = document.getElementById('usernameError');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+    const confirmPasswordError = document.getElementById('confirmPasswordError');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      usernameError.textContent = '';
+      emailError.textContent = '';
+      passwordError.textContent = '';
+      confirmPasswordError.textContent = '';
+      successMessage.textContent = '';
+
+      let valid = true;
+
+      if (username.value.trim() === '') {
+        usernameError.textContent = 'Username is required.';
+        valid = false;
+      }
+
+      if (email.value.trim() === '') {
+        emailError.textContent = 'Email is required.';
+        valid = false;
+      }
+
+      if (password.value.trim() === '') {
+        passwordError.textContent = 'Password is required.';
+        valid = false;
+      }
+
+      if (confirmPassword.value.trim() === '') {
+        confirmPasswordError.textContent = 'Please confirm your password.';
+        valid = false;
+      } else if (confirmPassword.value !== password.value) {
+        confirmPasswordError.textContent = 'Passwords do not match.';
+        valid = false;
+      }
+
+      if (valid) {
+        successMessage.textContent = `Thank you for registering, ${username.value}!`;
+        form.reset();
+      }
+    });
+  </script>
+</body>
+</html>
